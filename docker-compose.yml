@@ -1,34 +1,35 @@
 version: '2'
 services:
     db:
-        image: mysql:5.5.50
+        image: mariadb:5.5.50
         environment:
             MYSQL_ROOT_PASSWORD: 123qwe
             MYSQL_DATABASE: the_db
             MYSQL_USER: the_user
+            MYSQL_PASSWORD: 123qwe
+        ports:
+            - "13306:3306"
         volumes:
             - data:/var/lib/mysql
-    php:
-        image: php:5.6.23-fpm-alpine
-        volumes:
-            - files:/var/www
-        links:
-            - db
-    web:
-        build: ./nginx
-        ports:
-            - "80"
-            - "443"
-        volumes:
-            - files:/var/www
-        links:
-            - php
     ssh:
         build: ./openssh
         ports:
-            - "22"
+            - "10022:22"
         volumes:
-            - files:/var/www
+            - files:/code
+            - ssh:/home
+    php:
+        build: ./php
+        volumes:
+            - files:/code
+    web:
+        build: ./nginx
+        ports:
+            - "10080:80"
+            - "10443:443"
+        volumes:
+            - files:/code
 volumes:
     data: {  }
     files: {  }
+    ssh: {  }
