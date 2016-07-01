@@ -29,6 +29,10 @@ services:
             - "10443:443"
         volumes:
             - files:/code
+    cron:
+        build: ./cron
+        volumes:
+            - files:/code
 volumes:
     data: {  }
     files: {  }
