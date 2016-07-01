@@ -9,4 +9,4 @@ RUN { \
     } > /usr/local/etc/php/conf.d/zzz-overrides.ini
 COPY drupalcron.sh /usr/local/bin/drupalcron.sh
 COPY www-data /var/spool/cron/crontabs/
-CMD ["/usr/sbin/crond", "-l", "2", "-f"]
+CMD ["/usr/sbin/crond", "-d", "8", "-f"]
