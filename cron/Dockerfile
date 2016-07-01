@@ -1,6 +1,6 @@
 FROM php:5.6.23-alpine
 RUN set -x \
-    && apk add --no-cache libpng-dev binutils \
+    && apk add --no-cache libpng-dev binutils mariadb-client \
     && docker-php-ext-install gd pdo_mysql
 RUN { \
         echo 'date.timezone=UTC'; \

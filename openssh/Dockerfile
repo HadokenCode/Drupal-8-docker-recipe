@@ -1,6 +1,6 @@
 FROM php:5.6.23-alpine
 RUN set -x \
-    && apk add --no-cache libpng-dev binutils \
+    && apk add --no-cache libpng-dev binutils openssh mariadb-client \
     && docker-php-ext-install gd pdo_mysql
 RUN { \
         echo 'date.timezone=UTC'; \
@@ -8,7 +8,6 @@ RUN { \
         echo 'max_execution_time=0'; \
     } > /usr/local/etc/php/conf.d/zzz-overrides.ini
 RUN set -x \
-	&& apk add --no-cache openssh \
     && passwd -u www-data \
     && mkdir -p /home/www-data/.ssh \
     && chown www-data:www-data /home/www-data/.ssh \
